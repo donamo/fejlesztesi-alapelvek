@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Enterprise fejlesztési alapok</title>
+    <style>
+      :root {
+        --ink: #1b1b1b;
+        --muted: #5b5b5b;
+        --accent: #c65a2a;
+        --accent-soft: #ffe2d6;
+        --bg: #f6f2ea;
+        --card: #fff9f4;
+        --border: #e6d8c8;
+        --shadow: 0 12px 30px rgba(27, 27, 27, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        color: var(--ink);
+        background: radial-gradient(1200px 500px at 10% 10%, #fbe8d2 0%, transparent 60%),
+          radial-gradient(900px 600px at 90% 20%, #f2d7c6 0%, transparent 55%),
+          var(--bg);
+        min-height: 100vh;
+      }
+
+      header {
+        padding: 48px 24px 24px;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 3vw + 1.5rem, 3.2rem);
+        letter-spacing: 0.02em;
+      }
+
+      header p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(200px, 0.9fr) minmax(360px, 2.4fr);
+        gap: 28px;
+        padding: 24px 16px;
+        max-width: 1320px;
+        margin: 0 auto 48px;
+        align-items: stretch;
+      }
+
+      .list {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+        max-height: calc(100vh - 160px);
+        overflow: auto;
+      }
+
+      .list h2 {
+        margin: 0 0 12px;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .list ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 6px;
+      }
+
+      .list button {
+        width: 100%;
+        text-align: left;
+        padding: 8px 12px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        background: transparent;
+        font-size: 0.9rem;
+        color: var(--ink);
+        cursor: pointer;
+        transition: 0.2s ease;
+        line-height: 1.25;
+      }
+
+      .list .menu-index {
+        color: var(--muted);
+        font-weight: 600;
+        display: inline-block;
+        margin-right: 6px;
+      }
+
+      .list button span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .list button:hover {
+        border-color: var(--border);
+        background: #fff;
+      }
+
+      .list button.active {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
+
+      .detail {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        max-height: calc(100vh - 160px);
+        overflow: auto;
+        overflow-x: hidden;
+      }
+
+      .detail::after {
+        content: "";
+        position: absolute;
+        inset: auto -20% -20% auto;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(198, 90, 42, 0.15), transparent 70%);
+        border-radius: 50%;
+      }
+
+      .detail h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.4rem, 2.2vw + 1rem, 2rem);
+      }
+
+      .detail h4 {
+        margin: 0 0 18px;
+        font-weight: 400;
+        color: var(--muted);
+      }
+
+      .detail p {
+        margin: 0;
+        line-height: 1.6;
+        word-break: break-word;
+      }
+
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+        padding-bottom: 32px;
+      }
+
+      @media (max-width: 900px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+        .list,
+        .detail {
+          max-height: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Enterprise fejlesztési alapok</h1>
+      <p>
+        A 12factor.net alapelvek angol–magyar címmel, majd a kiegészítő, vállalati
+        szinten is elvárt gyakorlatokkal.
+      </p>
+    </header>
+
+    <main>
+      <section class="list" aria-label="Lista">
+        <h2>Lista</h2>
+        <ul id="item-list"></ul>
+      </section>
+
+      <section class="detail" aria-live="polite">
+        <h3 id="detail-en"></h3>
+        <h4 id="detail-hu"></h4>
+        <div id="detail-desc"></div>
+      </section>
+    </main>
+
+    <footer>Forras: 12factor.net + enterprise gyakorlatok</footer>
+
+    <script src="data.js"></script>
+    <script>
+      const listEl = document.getElementById("item-list");
+      const detailEn = document.getElementById("detail-en");
+      const detailHu = document.getElementById("detail-hu");
+      const detailDesc = document.getElementById("detail-desc");
+
+      function selectItem(index) {
+        const item = items[index];
+        detailEn.textContent = item.en;
+        detailHu.textContent = item.hu;
+        detailDesc.innerHTML = item.descHtml || "";
+
+        [...listEl.querySelectorAll("button")].forEach((button, i) => {
+          button.classList.toggle("active", i === index);
+        });
+      }
+
+      items.forEach((item, index) => {
+        const li = document.createElement("li");
+        const button = document.createElement("button");
+        button.type = "button";
+        const indexLabel = String(index + 1).padStart(2, "0");
+        button.innerHTML = `<span class="menu-index">${indexLabel}.</span> ${item.en} <span>${item.hu}</span>`;
+        button.addEventListener("click", () => selectItem(index));
+        li.appendChild(button);
+        listEl.appendChild(li);
+      });
+
+      selectItem(0);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "fejlesztesi-alapelvek",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-data.js"
+  },
+  "dependencies": {
+    "markdown-it": "^14.0.0",
+    "markdown-it-anchor": "^8.6.7"
+  }
+}
