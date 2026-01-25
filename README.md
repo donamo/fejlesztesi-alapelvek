@@ -21,6 +21,12 @@ npm run build
 
 A build kimenete a `build/` mappaba kerul.
 
+## Build es futtatas Dockerrel (npm nelkul)
+A Dockerfile tartalmazza a Node build lepest es az nginx kiszolgalast.
+```bash
+docker compose up --build -d
+```
+
 ## Lokal futtatas (nginx)
 Docker-compose alapu kiszolgalas:
 ```bash
@@ -29,7 +35,7 @@ docker compose up -d
 
 ## Tartalom frissitese
 1) Szerkeszd a megfelelo `content/*.md` fajlt.
-2) Futtasd a `npm run build` parancsot.
+2) Futtasd a `npm run build` parancsot vagy a `docker compose up --build -d` parancsot.
 3) Nyisd meg a `build/index.html` fajlt.
 
 ## Megjegyzes
