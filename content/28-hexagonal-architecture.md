@@ -1,6 +1,7 @@
 # 🧱 28 — Hexagonal Architecture (Ports & Adapters)
 
 > **Magyar:** Hexagonális architektúra  
+> **Kategória:** Architektúra & Rendszerfelépítés
 > **Angol:** Hexagonal Architecture (Ports and Adapters)
 
 ---

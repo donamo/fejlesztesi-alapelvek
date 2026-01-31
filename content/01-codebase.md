@@ -1,5 +1,6 @@
 > **Angol:** Codebase  
 > **Magyar:** Verziókezelés, Release és CI/CD – Enterprise Alapok
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 # 🧱 1. Mi az a Codebase?
 

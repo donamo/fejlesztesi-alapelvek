@@ -1,6 +1,7 @@
 # 🧾 15 — Audit Logging
 
 > **Magyar:** Audit naplózás — Ki, mit, mikor csinált  
+> **Kategória:** Security, Compliance & Kontroll
 > **Angol:** Audit Logging
 
 ---

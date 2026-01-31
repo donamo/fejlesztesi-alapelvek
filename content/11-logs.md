@@ -2,6 +2,7 @@
 
 > **Angol:** Treat logs as event streams  
 > **Magyar:** A logokat eseményfolyamként kezeld
+> **Kategória:** Observability, Monitoring & Láthatóság
 
 ---
 

@@ -1,6 +1,7 @@
 # ☸️ 38 — Platform képességek (Platform Capabilities)
 
 > **Magyar:** Platform képességek szerepe nagy rendszerekben  
+> **Kategória:** Platform, Szervezeti skálázás & Enablement
 > **Angol:** Platform Capabilities in Large-Scale Systems
 
 ---

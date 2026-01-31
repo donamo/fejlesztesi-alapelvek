@@ -2,6 +2,7 @@
 
 > **Angol:** Config — Store config in the environment  
 > **Magyar:** Konfiguráció — A konfigurációt környezeti változókban tárold
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

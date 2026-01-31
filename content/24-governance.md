@@ -1,6 +1,7 @@
 # 🏛️ 24 — Governance & Compliance
 
 > **Magyar:** Irányítás és megfelelőség  
+> **Kategória:** Security, Compliance & Kontroll
 > **Angol:** Governance and Compliance
 
 ---

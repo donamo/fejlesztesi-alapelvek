@@ -2,6 +2,7 @@
 
 > **Magyar:** Adatkezelés és migrációk  
 > **Angol:** Data Management and Migrations
+> **Kategória:** Schémák
 
 ---
 

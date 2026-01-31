@@ -2,6 +2,7 @@
 
 > **Angol:** Keep development, staging, and production as similar as possible  
 > **Magyar:** Fejlesztés és éles környezet legyen minél hasonlóbb
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

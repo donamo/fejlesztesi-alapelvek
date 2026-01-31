@@ -2,6 +2,7 @@
 
 > **Angol:** Export services via port binding  
 > **Magyar:** A szolgáltatás saját porton legyen elérhető
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

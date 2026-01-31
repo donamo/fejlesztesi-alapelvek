@@ -4,6 +4,7 @@ Ez a fejezet a **12-Factor App – II. Dependencies** elvet magyarázza el gyako
 
 > **Angol:** Dependencies — Explicitly declare and isolate dependencies  
 > **Magyar:** Függőségek — A függőségeket explicit módon deklaráld és izoláld
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

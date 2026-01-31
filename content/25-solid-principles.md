@@ -1,6 +1,7 @@
 # 🧱 25 — SOLID Principles
 
 > **Magyar:** SOLID tervezési elvek  
+> **Kategória:** Domain, Üzleti logika & Tervezési elvek
 > **Angol:** SOLID Design Principles
 
 ---

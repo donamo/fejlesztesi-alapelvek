@@ -1,6 +1,7 @@
 # 🛡️ 17 — Resilience & Fault Tolerance
 
 > **Magyar:** Hibatűrés és ellenállóképesség  
+> **Kategória:** Stabilitás, Megbízhatóság & Üzemeltetés
 > **Angol:** Resilience and Fault Tolerance
 
 ---

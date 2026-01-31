@@ -1,6 +1,7 @@
 # 🏛️ 19 — Architecture Patterns
 
 > **Magyar:** Architektúra minták — Clean, Hexagonal, Layered  
+> **Kategória:** Architektúra & Rendszerfelépítés
 > **Angol:** Architecture Patterns
 
 ---

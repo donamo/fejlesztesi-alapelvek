@@ -2,6 +2,7 @@
 
 > **Angol:** Treat backing services as attached resources  
 > **Magyar:** Háttérszolgáltatások kezelése csatolt erőforrásként
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

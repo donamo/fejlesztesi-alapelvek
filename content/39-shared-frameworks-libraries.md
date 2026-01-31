@@ -1,6 +1,7 @@
 # 📦 39 — Frameworkök és közös library-k nagy rendszerekben
 
 > **Magyar:** Shared framework és library stratégia  
+> **Kategória:** Platform, Szervezeti skálázás & Enablement
 > **Angol:** Shared Frameworks and Libraries Strategy
 
 ---

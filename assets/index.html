@@ -121,6 +121,14 @@
         background: var(--accent-soft);
       }
 
+      .category-label {
+        margin-top: 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
       .detail {
         background: #fff;
         border: 1px solid var(--border);
@@ -216,20 +224,41 @@
         detailHu.textContent = item.hu;
         detailDesc.innerHTML = item.descHtml || "";
 
-        [...listEl.querySelectorAll("button")].forEach((button, i) => {
-          button.classList.toggle("active", i === index);
+        [...listEl.querySelectorAll("button")].forEach((button) => {
+          const itemIndex = Number(button.dataset.index);
+          button.classList.toggle("active", itemIndex === index);
         });
       }
 
+      const groups = [];
+      const seen = new Map();
       items.forEach((item, index) => {
-        const li = document.createElement("li");
-        const button = document.createElement("button");
-        button.type = "button";
-        const indexLabel = String(index + 1).padStart(2, "0");
-        button.innerHTML = `<span class="menu-index">${indexLabel}.</span> ${item.en} <span>${item.hu}</span>`;
-        button.addEventListener("click", () => selectItem(index));
-        li.appendChild(button);
-        listEl.appendChild(li);
+        const category = item.category || "Egyeb";
+        if (!seen.has(category)) {
+          seen.set(category, groups.length);
+          groups.push({ category, items: [] });
+        }
+        groups[seen.get(category)].items.push({ item, index });
+      });
+
+      let counter = 1;
+      groups.forEach((group) => {
+        const label = document.createElement("li");
+        label.className = "category-label";
+        label.textContent = group.category;
+        listEl.appendChild(label);
+
+        group.items.forEach(({ item, index }) => {
+          const li = document.createElement("li");
+          const button = document.createElement("button");
+          button.type = "button";
+          const indexLabel = String(counter++).padStart(2, "0");
+          button.dataset.index = String(index);
+          button.innerHTML = `<span class="menu-index">${indexLabel}.</span> ${item.en} <span>${item.hu}</span>`;
+          button.addEventListener("click", () => selectItem(index));
+          li.appendChild(button);
+          listEl.appendChild(li);
+        });
       });
 
       selectItem(0);

@@ -1,6 +1,7 @@
 # 📣 22 — Event-driven & Messaging
 
 > **Magyar:** Eseményvezérelt architektúra és üzenetkezelés  
+> **Kategória:** Integráció, Eventek & Konzisztencia
 > **Angol:** Event-driven and Messaging
 
 ---

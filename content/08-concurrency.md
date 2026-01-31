@@ -2,6 +2,7 @@
 
 > **Angol:** Scale out via the process model  
 > **Magyar:** Skálázás process modell segítségével
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

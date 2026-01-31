@@ -2,6 +2,7 @@
 
 > **Angol:** Maximize robustness with fast startup and graceful shutdown  
 > **Magyar:** Gyors indulás és kulturált leállás
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

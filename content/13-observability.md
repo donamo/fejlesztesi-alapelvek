@@ -1,6 +1,7 @@
 # 👀 13 — Observability (Logs, Metrics, Tracing)
 
 > **Magyar:** Megfigyelhetőség — Lásd, mi történik a rendszerben  
+> **Kategória:** Observability, Monitoring & Láthatóság
 > **Angol:** Observability — Know what's happening inside the system
 
 ---

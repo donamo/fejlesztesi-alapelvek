@@ -1,6 +1,7 @@
 # 🩺 16 — Health Checks & SRE Basics
 
 > **Magyar:** Egészségellenőrzés és üzemeltethetőség  
+> **Kategória:** Stabilitás, Megbízhatóság & Üzemeltetés
 > **Angol:** Health Checks and SRE Basics
 
 ---

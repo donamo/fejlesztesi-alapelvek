@@ -1,6 +1,7 @@
 # 🧩 27 — Microservices Architecture
 
 > **Magyar:** Mikroszolgáltatás architektúra  
+> **Kategória:** Architektúra & Rendszerfelépítés
 > **Angol:** Microservices Architecture
 
 ---

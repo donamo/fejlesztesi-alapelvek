@@ -1,6 +1,7 @@
 # 🧭 33 — Architektúrális és Domain-alapú szemléletek áttekintése
 
 > **Magyar:** DDD, Clean, Hexagonal, Transaction Script – mikor melyik?  
+> **Kategória:** Domain, Üzleti logika & Tervezési elvek
 > **Angol:** Overview of Domain and Architectural Patterns
 
 ---

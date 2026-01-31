@@ -1,6 +1,7 @@
 # 🔐 14 — Security & Secrets Management
 
 > **Magyar:** Biztonság és titokkezelés  
+> **Kategória:** Security, Compliance & Kontroll
 > **Angol:** Security and Secrets Management
 
 ---

@@ -1,6 +1,7 @@
 # 🏗️ 26 — Monolith Architecture
 
 > **Magyar:** Monolitikus architektúra  
+> **Kategória:** Architektúra & Rendszerfelépítés
 > **Angol:** Monolithic Architecture
 
 ---

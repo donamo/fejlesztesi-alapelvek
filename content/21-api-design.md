@@ -2,6 +2,7 @@
 
 > **Magyar:** API tervezés és verziózás  
 > **Angol:** API Design and Versioning
+> **Kategória:** Schémák
 
 ---
 

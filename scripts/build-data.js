@@ -84,6 +84,25 @@ function extractLabeledTitles(body) {
   return { en, hu };
 }
 
+
+function extractCategory(body) {
+  let category = "";
+  body.split("\n").forEach((line) => {
+    let cleaned = line.trim();
+    if (!cleaned) {
+      return;
+    }
+    cleaned = cleaned.replace(/^>\s*/, "");
+    cleaned = stripMarkdown(cleaned);
+
+    const match = cleaned.match(/^Kateg[óo]ria:\s*(.+)$/i);
+    if (match && !category) {
+      category = match[1].trim();
+    }
+  });
+  return category;
+}
+
 function stripLabeledTitleLines(body) {
   const lines = body.split("\n");
   const filtered = lines.filter((line) => {
@@ -92,7 +111,11 @@ function stripLabeledTitleLines(body) {
       return true;
     }
     const cleaned = stripMarkdown(trimmed.replace(/^>\s*/, ""));
-    return !/^Angol:\s*/i.test(cleaned) && !/^Magyar:\s*/i.test(cleaned);
+    return (
+      !/^Angol:\s*/i.test(cleaned) &&
+      !/^Magyar:\s*/i.test(cleaned) &&
+      !/^Kateg[óo]ria:\s*/i.test(cleaned)
+    );
   });
   return filtered.join("\n").trim();
 }
@@ -123,13 +146,14 @@ function parseMarkdown(text) {
   const meta = parseFrontmatter(frontmatter);
   const labeled = extractLabeledTitles(body);
   const heading = extractHeadingTitles(body);
+  const category = extractCategory(body) || meta.category || "";
 
   const en = labeled.en || heading.en || meta.en || "";
   const hu = labeled.hu || heading.hu || meta.hu || "";
   const bodyWithoutLabels = stripLabeledTitleLines(body);
   const descHtml = md.render(bodyWithoutLabels).trim();
 
-  return { en, hu, descHtml };
+  return { en, hu, category, descHtml };
 }
 
 const files = fs

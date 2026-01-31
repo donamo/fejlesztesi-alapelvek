@@ -1,6 +1,7 @@
 # 🧠 32 — Domain Layer mint Single Source of Truth
 
 > **Magyar:** Az üzleti logika egy helyen  
+> **Kategória:** Domain, Üzleti logika & Tervezési elvek
 > **Angol:** Domain Layer as Single Source of Truth
 
 ---

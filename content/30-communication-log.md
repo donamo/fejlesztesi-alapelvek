@@ -1,6 +1,7 @@
 # 🗣️ 30 — Communication Log (Kommunikációs napló)
 
 > **Magyar:** Kommunikációs log — Szolgáltatások közti hívások naplózása  
+> **Kategória:** Observability, Monitoring & Láthatóság
 > **Angol:** Communication Log — Logging inter-service communication
 
 ---

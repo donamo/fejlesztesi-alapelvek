@@ -1,6 +1,7 @@
 # 🚀 18 — CI/CD Maturity & Release Management
 
 > **Magyar:** CI/CD érettség és release menedzsment  
+> **Kategória:** Szállítás, Release & Delivery
 > **Angol:** CI/CD Maturity and Release Management
 
 ---

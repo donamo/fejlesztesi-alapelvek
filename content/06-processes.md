@@ -2,6 +2,7 @@
 
 > **Angol:** Strictly separate build and run stages  
 > **Magyar:** Build, release és run fázisok szétválasztása
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

@@ -1,6 +1,7 @@
 # 🧵 31 — Tracing (Distributed Tracing)
 
 > **Magyar:** Tracing — Egy kérés útjának követése microservice-eken át  
+> **Kategória:** Observability, Monitoring & Láthatóság
 > **Angol:** Distributed Tracing — Following a request across services
 
 ---

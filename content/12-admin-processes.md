@@ -2,6 +2,7 @@
 
 > **Angol:** Run admin/management tasks as one-off processes  
 > **Magyar:** Admin feladatok is ugyanabból a kódból fussanak
+> **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
 ---
 

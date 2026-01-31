@@ -1,6 +1,7 @@
 # 📊 29 — Metrics (Mérések)
 
 > **Magyar:** Metrikák — Számokkal mérjük a rendszer állapotát  
+> **Kategória:** Observability, Monitoring & Láthatóság
 > **Angol:** Metrics — Measuring system health with numbers
 
 ---

@@ -1,6 +1,7 @@
 # ☸️ 23 — Platform & Kubernetes Baseline
 
 > **Magyar:** Platform alapok és Kubernetes standardok  
+> **Kategória:** Platform, Szervezeti skálázás & Enablement
 > **Angol:** Platform and Kubernetes Baseline
 
 ---
