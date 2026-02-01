@@ -1,36 +1,30 @@
-> **Angol:** Codebase  
+> **Angol:** Version Control - codebase  
 > **Magyar:** Verziókezelés, Release és CI/CD – Enterprise Alapok
 > **Kategória:** Alkalmazás-alapelvek & Cloud-native működés
 
-# 🧱 1. Mi az a Codebase?
+# 🧱  Verziókezelés (Version Control)
 
-> Egy alkalmazás = egy codebase, több deploy.
+A **verziókezelés (version control)** egy olyan rendszer, ami **nyomon követi és kezeli a fájlok változásait az időben**. Lehetővé teszi, hogy **többen dolgozzanak ugyanazon projekten párhuzamosan**, miközben **minden módosítás története megmarad**.
 
----
+A verziókezelő a változásokat (kód, dokumentáció, konfiguráció stb.) egy **repozitóriumban (repository)** tárolja. Ennek köszönhetően:
 
-## 🎯 Miért fontos? – Előnyök
+- ⏪ vissza tudsz térni korábbi állapotokra (rollback),
+- 🔍 össze tudod hasonlítani a verziók közti különbségeket (diff),
+- 🧾 követhetővé válik a projekt „evolúciója” (mit-miért változtattunk).
 
-- 🕒 Teljes változástörténet (ki, mikor, mit módosított)
-- 👥 Csapatmunka támogatása
-- ⏪ Visszagörgetés (rollback) lehetősége
-- 🤖 CI/CD, tesztelés, automatizmusok alapja
-- 🧾 Auditálhatóság
 
 ---
 
-# 🗂️ 2. Verziókezelés (Git)
+## 🎯 Miért használjunk verziókezelést?
 
-## 🧠 Mi a Git?
+A verziókezelés **alapvető** szoftverfejlesztésben, mert:
 
-A **Git** egy elosztott verziókezelő rendszer, ami:
-- ⚡ gyors
-- 🛡️ megbízható
-- 🌿 párhuzamos fejlesztést tesz lehetővé
+- 🕒 **követhetővé teszi** a módosításokat (ki, mikor, mit),
+- 👥 **támogatja a csapatmunkát** és a párhuzamos fejlesztést,
+- 🧾 **megőrzi a projekt történetét** (auditálhatóság),
+- 🧩 csökkenti a káoszt release-eknél és hotfixeknél,
+- 🤖 stabil alapot ad a **CI/CD** és automatizmusok számára.
 
-**Git ≠ GitHub**
-
-- 🧰 Git: verziókezelő eszköz
-- ☁️ GitHub / GitLab / Bitbucket: platform a repo hostolására + csapatfunkciók + CI/CD
 
 ---
 
@@ -43,19 +37,76 @@ A **Git** egy elosztott verziókezelő rendszer, ami:
 
 ---
 
+## 🔀 Merge stratégiák (ágak összefésülése)
+
+Amikor egy branchet (pl. `feature/...`) egy másikba (pl. `main`) integrálsz, a Git többféle megközelítést ad. Ezek a stratégiák segítenek abban, hogy **a történet (history) mennyire marad lineáris**, mennyire látszanak a fejlesztési lépések, és mennyire könnyű később hibát keresni.
+
+### 1) Fast Forward (FF)
+
+- Akkor lehetséges, ha a cél ág (`main`) **nem haladt előre**, csak a feature branch tartalmaz új commitokat.
+- Ilyenkor a `main` „előreteker” a feature branch végére.
+- ✅ Tiszta, egyszerű history  
+- ⚠️ Nem látszik külön merge commit, kevésbé „jelzi”, hogy egy feature integrálva lett
+
+### 2) Non-Fast Forward (merge commit)
+
+- Mindig létrehoz egy **külön merge commitot**, még akkor is, ha FF is lehetne.
+- ✅ Jól látszik, *mikor* és *milyen ág* lett beolvasztva  
+- ✅ Audit / trace szempontból előnyös  
+- ⚠️ Zajosabb history (több merge commit)
+
+### 3) Rebase
+
+- A feature branch commitjai „rákerülnek” a `main` aktuális végére, mintha **mindig is onnan indult volna**.
+- ✅ Szép, **lineáris** history  
+- ⚠️ **Átírja a commit történetet** (hash-ek változnak), ezért megosztott branch-en óvatosan  
+- ✅ Jó fejlesztés közben (lokálisan / saját branchen), hogy rendezett legyen a PR
+
+### 4) Squash
+
+- A feature branch több commitját **összenyomja egyetlen committá** a merge során.
+- ✅ Tiszta `main`: “1 feature = 1 commit” jelleg  
+- ✅ Egyszerűbb visszagörgetés egy feature-re  
+- ⚠️ Elvész a részletes commit történet (finomabb nyomozás nehezebb)
+
+### 5) Cherry-picking
+
+- Nem az egész branchet olvasztod be, csak **egy vagy néhány konkrét commitot** emelsz át.
+- ✅ Nagyon célzott (pl. hotfixet gyorsan átvinni release/prod ágra)  
+- ⚠️ Könnyű duplikációt vagy konfliktust okozni, ha nem következetes a folyamat  
+- ⚠️ History szempontból „szétszórja” a változások eredetét
+
+---
+
+## 🏢 Enterprise best practice: döntések és irányelvek
+
+Enterprise környezetben a verziókezelési döntések célja tipikusan: **auditálhatóság, kiszámítható release, gyors hibajavítás, és a konfliktusok minimalizálása**.
+
+### Ajánlott irányelvek
+
+- 🧭 **Legyen egyértelmű alapelv**: a `main` history legyen **lineáris** (pl. *Squash* vagy *Rebase+Merge*), vagy legyen **explicit merge commit** (Non-FF) – és ezt a csapat tartsa is.
+- 🔐 **Protected branch + kötelező PR/MR**: direkt push tiltás `main`/`release` ágakra.
+- ✅ **Kötelező CI státuszok**: tesztek, lint, security scan, build.
+- 🧾 **Kötelező review szabályok**: minimum 1–2 jóváhagyó, CODEOWNERS a kritikus részekre.
+- 🏷️ **Release tagging**: minden éles release **tag-elve** legyen (pl. `v1.4.2`), hogy rollback és reprodukálhatóság garantált legyen.
+- 🚑 **Hotfix stratégia**: kritikus javításnál gyakran **cherry-pick** vagy külön `hotfix/...` branch → gyors release.
+- 📝 **Commit/PR standard**: konzisztens címek (pl. Conventional Commits), linkelt Jira ticket, értelmes leírás – ez auditnál aranyat ér.
+
+### Gyakori, működő kompromisszum (sok csapatnál bevált)
+
+- Feature branch fejlesztés közben: **rebase** (hogy rendezett legyen a PR)
+- `main`-be merge: **squash merge** (tiszta `main`, könnyű revert)
+- Release/hotfix: célzottan **cherry-pick**, ha sürgős és kontrollált kell legyen
+
+---
+
+
 ### 🌿 Branch (ág)
 
 **Mire jó?**
 - 🧩 Párhuzamos fejlesztés
 - 🏗️ Feature-ök elkülönítése
 - 🛡️ Stabil main ág védelme
-
-**Tipikus branch nevek:**
-- `main` / `master`
-- `feature/login`
-- `bugfix/nullpointer`
-- `release/1.2.0`
-- `hotfix/urgent`
 
 **Előnyök:**
 - 🔒 Izolált munka
@@ -79,70 +130,7 @@ A **Git** egy elosztott verziókezelő rendszer, ami:
 
 ---
 
-# 🧮 3. Verziózás (Semantic Versioning)
-
-Formátum:  
-```
-MAJOR.MINOR.PATCH
-```
-
-Példa:  
-```
-1.4.2
-```
-
-- 🚨 MAJOR: breaking change
-- ✨ MINOR: új feature
-- 🐞 PATCH: bugfix
-
----
-
-# 🔁 4. Kapcsolat a Pipeline-nal (CI/CD)
-
-## 🗺️ Fejlesztési flow
-
-```
-feature branch → PR → main → pipeline → staging → prod
-```
-
----
-
-## 🧪 CI (Continuous Integration)
-
-Minden push-ra:
-
-- 🏗️ build
-- 🧪 test
-- 🧹 lint
-- 🔐 security scan
-
----
-
-## 🚀 CD (Continuous Delivery / Deployment)
-
-Main vagy tag esetén:
-
-- 📦 build artifact
-- 🧪 deploy staging
-- 🔍 smoke test
-- 🚀 (manual vagy auto) deploy prod
-
----
-
-# 📦 5. Release Flow (ajánlott)
-
-1. 🌿 Feature branchek bemennek main-be
-2. 🏷️ Létrejön egy `release/x.y.z` branch
-3. 🧪 QA, utolsó fixek
-4. 🏷️ Tag: `vX.Y.Z`
-5. 🤖 Pipeline:
-   - 🏗️ build
-   - 📤 publish
-   - 🚀 deploy
-
----
-
-# 📚 6. Tanulási anyagok
+# 📚 Tanulási anyagok
 
 - 🗺️ Roadmap: https://roadmap.sh/git-github
 - 📖 Pro Git könyv: https://git-scm.com/book
