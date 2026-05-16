@@ -1,0 +1,128 @@
+name: Check and publish Docker image
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  check:
+    name: Check Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Docker build inputs
+        run: |
+          set -euo pipefail
+          for file in \
+            Dockerfile \
+            default.conf \
+            package.json \
+            package-lock.json \
+            assets/index.html \
+            scripts/build-data.js
+          do
+            test -s "$file"
+          done
+          test -d content
+          find content -maxdepth 1 -type f -name '*.md' -print -quit | grep -q .
+
+      - name: Verify build wiring
+        run: |
+          set -euo pipefail
+          grep -q 'src="data.js"' assets/index.html
+          grep -q 'npm run build' Dockerfile
+          grep -q 'COPY --from=builder /app/build /usr/share/nginx/html' Dockerfile
+          grep -q 'root /usr/share/nginx/html;' default.conf
+          node -e "const pkg = require('./package.json'); if (pkg.scripts?.build !== 'node scripts/build-data.js') process.exit(1)"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+
+      - name: Build site
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run build
+          test -s build/index.html
+          test -s build/data.js
+          grep -q 'const items =' build/data.js
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: nagyreka-check:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  publish:
+    name: Publish Docker image
+    needs: check
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve image name
+        id: image
+        run: echo "name=${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
+          tags: |
+            type=ref,event=tag
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
